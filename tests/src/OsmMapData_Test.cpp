@@ -1,12 +1,29 @@
 #include <OsmMapData.h>
+#include <builders/GeoCoordinateBuilder.h>
+#include <builders/JunctionBuilder.h>
+#include <builders/LinkBuilder.h>
 #include <gtest/gtest.h>
 
 #include <memory>
+#include <tuple>
 
 const static std::string res_dir = "res/OsmMapData_Test/";
 
 namespace {
 std::string get_res_path(const std::string& str) { return res_dir + str; }
+
+std::vector<GeoCoordinate> create_points(
+    const std::initializer_list<std::tuple<int, double, double>>& data) {
+  std::vector<GeoCoordinate> result;
+  for (const auto& item : data) {
+    GeoCoordinateBuilder b;
+    b.set_id(std::get<0>(item));
+    b.set_coordinates(std::get<1>(item), std::get<2>(item));
+    result.emplace_back(b.build());
+  }
+  return result;
+}
+
 }  // namespace
 
 class BaseOsmMapDataTest : public ::testing::Test {
@@ -15,18 +32,19 @@ class BaseOsmMapDataTest : public ::testing::Test {
 
   std::shared_ptr<AbstractMapData> m_map;
 };
-/*
+
 //--------------------------------------------------------------------------------------------------
 
 TEST_F(BaseOsmMapDataTest, correct_points) {
   ASSERT_TRUE(m_map->load_data(get_res_path("initial_test.osm")));
 
   auto points = m_map->get_points();
-  decltype(points) expected_points = {{1658892715, 50.0484352, 19.9578585},
-                                      {1658892837, 50.0487473, 19.9575554},
-                                      {1658892870, 50.0488517, 19.9574385},
-                                      {8869531296, 50.0470099, 19.9560818},
-                                      {3308660443, 50.0487668, 19.9576425}};
+  decltype(points) expected_points =
+      create_points({{1658892715, 50.0484352, 19.9578585},
+                     {1658892837, 50.0487473, 19.9575554},
+                     {1658892870, 50.0488517, 19.9574385},
+                     {8869531296, 50.0470099, 19.9560818},
+                     {3308660443, 50.0487668, 19.9576425}});
   for (const auto& point : expected_points) {
     EXPECT_NE(std::find_if(points.begin(), points.end(),
                            [&point](decltype(point) point_internal) {
@@ -45,11 +63,12 @@ TEST_F(BaseOsmMapDataTest, correct_links) {
 
   // Points
   auto points = m_map->get_points();
-  decltype(points) expected_points = {{1658892715, 50.0484352, 19.9578585},
-                                      {1658892837, 50.0487473, 19.9575554},
-                                      {1658892870, 50.0488517, 19.9574385},
-                                      {8869531296, 50.0470099, 19.9560818},
-                                      {3308660443, 50.0487668, 19.9576425}};
+  decltype(points) expected_points =
+      create_points({{1658892715, 50.0484352, 19.9578585},
+                     {1658892837, 50.0487473, 19.9575554},
+                     {1658892870, 50.0488517, 19.9574385},
+                     {8869531296, 50.0470099, 19.9560818},
+                     {3308660443, 50.0487668, 19.9576425}});
   for (const auto& point : expected_points) {
     EXPECT_NE(std::find_if(points.begin(), points.end(),
                            [&point](decltype(point) point_internal) {
@@ -68,7 +87,7 @@ TEST_F(BaseOsmMapDataTest, correct_links) {
                              return link_internal == link;
                            }),
               links.end())
-        << "Expected link not found: " << links.get_id();
+        << "Expected link not found: " << link.get_id();
   }
 }
 
@@ -79,11 +98,12 @@ TEST_F(BaseOsmMapDataTest, correct_junction) {
 
   // Points
   auto points = m_map->get_points();
-  decltype(points) expected_points = {{1658892715, 50.0484352, 19.9578585},
-                                      {1658892837, 50.0487473, 19.9575554},
-                                      {1658892870, 50.0488517, 19.9574385},
-                                      {8869531296, 50.0470099, 19.9560818},
-                                      {3308660443, 50.0487668, 19.9576425}};
+  decltype(points) expected_points =
+      create_points({{1658892715, 50.0484352, 19.9578585},
+                     {1658892837, 50.0487473, 19.9575554},
+                     {1658892870, 50.0488517, 19.9574385},
+                     {8869531296, 50.0470099, 19.9560818},
+                     {3308660443, 50.0487668, 19.9576425}});
   for (const auto& point : expected_points) {
     EXPECT_NE(std::find_if(points.begin(), points.end(),
                            [&point](decltype(point) point_internal) {
@@ -115,4 +135,4 @@ TEST_F(BaseOsmMapDataTest, correct_junction) {
               junctions.end())
         << "Expected junction not found: " << junction.get_id();
   }
-}*/
+}
