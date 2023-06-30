@@ -6,6 +6,11 @@ void LinkBuilder::add_geom_point(const GeoCoordinate& point) {
   m_result.m_geometry.emplace_back(point);
 }
 
+void LinkBuilder::add_geom_points(const std::vector<GeoCoordinate>& points) {
+  std::copy(points.begin(), points.end(),
+            std::back_inserter(m_result.m_geometry));
+}
+
 Link LinkBuilder::build() {
   auto res = m_result;
   m_result = {};

@@ -10,6 +10,10 @@ void JunctionBuilder::add_link(const Link& link) {
   m_result.m_links.emplace_back(link);
 }
 
+void JunctionBuilder::add_links(const std::vector<Link>& links) {
+  std::copy(links.begin(), links.end(), std::back_inserter(m_result.m_links));
+}
+
 Junction JunctionBuilder::build() {
   auto res = m_result;
   m_result = {};
