@@ -1,4 +1,4 @@
-#include <OsmMapData.h>
+#include <MapData/OsmMapData.h>
 #include <builders/GeoCoordinateBuilder.h>
 #include <builders/JunctionBuilder.h>
 #include <builders/LinkBuilder.h>

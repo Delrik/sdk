@@ -12,9 +12,14 @@ set(SOURCES
     include/common/Link.h
 
     private/include/NavAppImpl.h private/src/NavAppImpl.cpp
-    private/include/AbstractMapData.h
-    private/include/OsmMapData.h private/src/OsmMapData.cpp
     private/include/Id.h
+
+    private/include/MapData/AbstractMapData.h
+    private/include/MapData/OsmMapData.h private/src/MapData/OsmMapData.cpp
+    private/include/MapData/OsmXmlParser.h private/src/MapData/OsmXmlParser.cpp
+    private/include/MapData/OsmMapDataStatistics.h private/src/MapData/OsmMapDataStatistics.cpp
+    private/include/MapData/NodeData.h
+    private/include/MapData/WayData.h
     
     private/include/Builders.h
     private/include/builders/GeoCoordinateBuilder.h private/src/builders/GeoCoordinateBuilder.cpp
