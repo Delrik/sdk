@@ -20,5 +20,4 @@ class OsmXmlParser {
 
   void process_node(rapidxml::xml_node<>* node);
   void process_way(rapidxml::xml_node<>* node);
-  void process_way_nd(rapidxml::xml_node<>* node, WayData& data_to_change);
 };
