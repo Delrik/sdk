@@ -28,9 +28,11 @@ set(SOURCES
 
 add_library(nav-sdk ${SOURCES})
 
-target_include_directories(nav-sdk PUBLIC include)
-target_include_directories(nav-sdk PRIVATE private/include)
+find_package(Boost REQUIRED COMPONENTS)
 
-#target_link_libraries(nav-sdk PRIVATE tinyxml2)
+target_include_directories(nav-sdk PUBLIC include)
+target_include_directories(nav-sdk PRIVATE private/include ${Boost_INCLUDE_DIRS})
+
+target_link_libraries(nav-sdk PRIVATE Boost::container_hash)
 
 add_subdirectory(tests)

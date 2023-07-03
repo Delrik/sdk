@@ -6,8 +6,8 @@
 
 struct Builders {
   static GeoCoordinateBuilder GetGeoCoordinateBuilder() {
-    return GeoCoordinateBuilder;
+    return GeoCoordinateBuilder();
   }
-  static LinkBuilder GetLinkBuilder() { return LinkBuilder; }
-  static JunctionBuilder GetJunctionBuilder() { return JunctionBuilder; }
-}
+  static LinkBuilder GetLinkBuilder() { return LinkBuilder(); }
+  static JunctionBuilder GetJunctionBuilder() { return JunctionBuilder(); }
+};

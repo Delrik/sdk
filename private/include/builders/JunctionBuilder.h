@@ -3,9 +3,9 @@
 
 class JunctionBuilder {
  public:
-  void set_id(uint32_t id);
   void add_link(const Link& link);
   void add_links(const std::vector<Link>& links);
+  void set_coordinate(const GeoCoordinate& coord);
   Junction build();
 
  private:
